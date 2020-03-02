@@ -123,6 +123,7 @@ void lower(List L, int V,int *P, int *D,int S){
 void Prim( int num){
 	Position PS;
 	int min, i,j;
+	int sign;
 
 	// PS=array[ visited[num] ].Next;
 	
@@ -159,17 +160,23 @@ void Prim( int num){
 	for(i=0;i<num;i++){
 		PS=array[ visited[num] ].Next;
 		min = MAX;
+		sign = 0;
 		while(PS!=NULL){
 			for(j=0;j<num;j++){
 				if(visited[j] == 0){
 					break;
 				}
 				if(PS->Point == visited[j]){
+					sign = 1;
 					break;
 				}
-				else{
-					continue;
-				}
+
+			}
+
+			if(sign == 1){
+				sign = 0;
+				PS = PS -> Next;
+				continue;
 			}
 			lower(PS,visited[i],&visited[num],&min,num);
 			PS = PS->Next;
